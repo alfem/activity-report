@@ -44,13 +44,21 @@ for line in logfile:
   if e_type == "START":
     last_time=e_time
     
-  if e_type == "IDLE":
+  if e_type == "IDLE" or e_type == "SCREENSAVER":
     if e_status == "1":
       if last_time > 0:
         seconds=seconds+e_time-last_time
         last_time=0
     if e_status == "0":
       last_time=e_time
+
+  if e_type == "PRESENCE":
+    if e_status == "0":
+      last_time=e_time
+    else:
+      if last_time > 0:
+        seconds=seconds+e_time-last_time
+        last_time=0
     
   if e_type == "LOGOUT" and e_status == "1":
       if last_time > 0:

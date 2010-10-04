@@ -21,10 +21,17 @@ def on_signal(signum, frame):
 def on_screensaver_changed(state):
   """Metodo llamado automaticamente cuando el salvapantallas se activa/desactiva """
   if state == 1:
-    log_event("IDLE",state,"Comienza periodo de inactividad") 
+    log_event("SCREENSAVER",state,"Comienza periodo de inactividad") 
   else:
-    log_event("IDLE",state,"Fin del periodo de inactividad")      
+    log_event("SCREENSAVER",state,"Fin del periodo de inactividad")      
 
+def on_session_changed(state):
+  """Metodo llamado automaticamente cuando el salvapantallas se activa/desactiva """
+  if state == 3:
+    log_event("PRESENCE",state,"Comienza periodo de inactividad") 
+  else:
+    log_event("PRESENCE",state,"Fin del periodo de inactividad") 
+  
 def on_logout(*args):
   log_event("LOGOUT",1,"Fin de la sesion")      
 
@@ -60,8 +67,9 @@ signal.signal(signal.SIGTERM, on_signal)
 #Obtenemos el bus de sesión (mediante dbus)
 session_bus = dbus.SessionBus()
 
-#Añadimos una llamada a nuestro método cuando dbus avise de un cambio en el salvapantallas
+#Añadimos una llamada a nuestro método cuando dbus avise de un cambio en el salvapantallas o en la presencia
 session_bus.add_signal_receiver(on_screensaver_changed,'ActiveChanged','org.gnome.ScreenSaver')
+session_bus.add_signal_receiver(on_session_changed,'StatusChanged','org.gnome.SessionManager.Presence')
 
 gnome.program_init('Activity',"1") 
 client = gnome.ui.master_client() 
