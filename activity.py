@@ -45,7 +45,8 @@ def log_event(type,state,message):
   try:
     logfile = open(LOGFILE, "a")
     try:
-      logfile.write("%s,%f,%s,%i,%s\n" % (datetime.date.today(),time.time(),type,state,message))
+      human_datetime=time.strftime("%Y-%m-%d,%H:%M:%S",time.localtime())
+      logfile.write("%s,%s,%i,%s\n" % (human_datetime,type,state,message))
     finally:
       logfile.close()
   except IOError:
@@ -53,7 +54,9 @@ def log_event(type,state,message):
 
 
 
-#
+#Configuración
+
+#Archivo de log en el home del usuario
 homedir = os.path.expanduser('~')
 LOGFILE=homedir+"/activity.log"
 

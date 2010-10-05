@@ -10,7 +10,6 @@ import subprocess
 import datetime, time
 
 
-
 homedir = os.path.expanduser('~')
 LOGFILE=homedir+"/activity.log"
 
@@ -28,14 +27,14 @@ days=[]
 
 
 for line in logfile:
-#  print line
   (e_date,e_time,e_type,e_status,e_text)=line.split(",",4)
-  e_time=float(e_time)
-#  print e_date,e_time
+  struct_time=time.strptime(e_date+","+e_time,"%Y-%m-%d,%H:%M:%S")
+  e_time=time.mktime(struct_time)
+#  print line
 
   if (e_date != last_date):
     if seconds > 0:
-      print "TOTAL:",last_date,seconds
+#      print "TOTAL:",last_date,seconds
       days.append( [last_date,str(datetime.timedelta(seconds=int(seconds)))] )
     seconds=0
     last_date=e_date
@@ -48,6 +47,7 @@ for line in logfile:
     if e_status == "1":
       if last_time > 0:
         seconds=seconds+e_time-last_time
+#        print seconds
         last_time=0
     if e_status == "0":
       last_time=e_time
@@ -58,18 +58,21 @@ for line in logfile:
     else:
       if last_time > 0:
         seconds=seconds+e_time-last_time
+#        print seconds
         last_time=0
     
   if e_type == "LOGOUT" and e_status == "1":
       if last_time > 0:
         seconds=seconds+e_time-last_time
+#        print seconds
 
 
 if (last_time > 0 and last_date == str(datetime.date.today())):
   seconds=seconds+time.time()-last_time
+#  print seconds
+ 
 
-
-print "TOTAL:",last_date,str(datetime.timedelta(seconds=int(seconds)))
+#print "TOTAL:",last_date,str(datetime.timedelta(seconds=int(seconds)))
 days.append( [last_date,str(datetime.timedelta(seconds=int(seconds)))] )
 
 logfile.close()
@@ -80,5 +83,4 @@ days.reverse()
 for d in days:
   cmd=cmd+d[0]+" "+d[1]+" " 
 
-#print cmd
 p = subprocess.Popen(cmd, shell=True)
