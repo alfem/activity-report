@@ -4,7 +4,7 @@
 
 El tiempo el algo muy subjetivo. ¿Cuantas veces hemos mirado el reloj pensando que ya era hora de irse?
 
-Pues bien, con este pequeño programa es posible controlar nuestra actividad en Guadalinex y llevar un recuento de horas diarias.
+Pues bien, con este pequeño programa es posible controlar nuestra actividad en Linux y llevar un recuento de horas diarias.
 
 
 INSTALACION
