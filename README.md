@@ -6,12 +6,17 @@ El tiempo el algo muy subjetivo. ¿Cuantas veces hemos mirado el reloj pensando 
 
 Pues bien, con este pequeño programa es posible controlar nuestra actividad en Linux y llevar un recuento de horas diarias.
 
+Mira el wiki para ver cómo funciona: 
+
+https://github.com/alfem/activity-report/wiki
+
 
 INSTALACION
 
-Descarga la última versión desde este sitio:
+Descarga la última versión desde:
 
-http://forja.guadalinex.org/frs/?group_id=82
+https://github.com/alfem/activity-report/archive/master.zip
+
 
 Descomprime el archivo. Obtendrás dos ficheros: activity.py y activity-report.py
 
